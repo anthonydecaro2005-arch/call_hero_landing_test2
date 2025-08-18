@@ -1,41 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Call Hero - Guaranteed 100% Answer Rate For Plumbers</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/597/597177.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #002b5c; /* Deep blue from logo */
+      background-color: #002b5c;
       color: #ffffff;
       text-align: center;
     }
+
     header {
-      padding: 20px;
+      padding: 2rem 1rem 1rem;
     }
+
     h1.logo-text {
-      font-size: 48px;
-      font-weight: 700;
-      letter-spacing: 1px;
+      font-size: 2.5rem;
       margin: 0;
-      color: #ffffff;
     }
+
     h2.sub-header {
-      font-size: 20px;
-      font-weight: 700;
-      margin: 5px 0 0 0;
-      color: #ffffff;
+      font-size: 1.2rem;
+      margin: 0.5rem 0 0;
     }
+
     video {
-      max-width: 90%;
-      margin: 20px auto;
+      width: 90%;
+      max-width: 800px;
+      margin: 2rem auto;
       display: block;
-      border: 3px solid black;
-      box-sizing: border-box;
+      border: 3px solid #000;
     }
+
     #demo-button {
       opacity: 0;
       pointer-events: none;
@@ -43,19 +49,30 @@
       background-color: #ff0000;
       color: white;
       border: none;
-      padding: 12px 24px;
-      font-size: 16px;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 700;
       cursor: pointer;
-      margin-bottom: 20px;
+      border-radius: 6px;
+      margin-bottom: 2rem;
     }
+
+    #demo-button:hover {
+      background-color: #cc0000;
+    }
+
     #calendly-container {
-      display: block;
       visibility: hidden;
-      margin: 10px auto;
-      max-width: 90%;
       height: 0;
       overflow: hidden;
       transition: height 0.3s ease, visibility 0s linear 0.3s;
+      max-width: 90%;
+      margin: 0 auto 2rem;
+    }
+
+    iframe {
+      width: 100%;
+      border: none;
     }
   </style>
 </head>
@@ -66,20 +83,21 @@
   </header>
 
   <video id="hero-video" autoplay muted playsinline>
-    <source src="https://outreach-video-backup-anthony0.s3.amazonaws.com/videos/superiorplumbing.ca_-_vaughan_-__20250818195128_final.mp4?AWSAccessKeyId=AKIAYNPTUAW6UIJDOLQS&Signature=ZlI58DDfLeNXdI4wQZKRC81959Y%3D&Expires=1758138788" type="video/mp4">
+    <source src="https://outreach-video-backup-anthony0.s3.amazonaws.com/videos/superiorplumbing.ca_-_vaughan_-__20250818195128_final.mp4?AWSAccessKeyId=AKIAYNPTUAW6UIJDOLQS&Signature=ZlI58DDfLeNXdI4wQZKRC81959Y%3D&Expires=1758138788" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 
   <button id="demo-button" onclick="showCalendly()">Request Your Zero Risk Free Trial</button>
 
   <div id="calendly-container">
-    <iframe id="calendly-iframe" src="https://calendly.com/anthonydecaro2005/30min" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+    <iframe id="calendly-iframe" src="https://calendly.com/anthonydecaro2005/30min" height="600" scrolling="no"></iframe>
   </div>
 
   <script>
     const button = document.getElementById('demo-button');
     const calendlyContainer = document.getElementById('calendly-container');
 
+    // Show button after 10s
     setTimeout(() => {
       button.style.opacity = 1;
       button.style.pointerEvents = 'auto';
@@ -88,8 +106,14 @@
     function showCalendly() {
       calendlyContainer.style.visibility = 'visible';
       calendlyContainer.style.height = '600px';
-      calendlyContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      calendlyContainer.scrollIntoView({ behavior: 'smooth' });
     }
+
+    // Optional: fire analytics event on video start
+    // const video = document.getElementById('hero-video');
+    // video.addEventListener('play', () => {
+    //   console.log("Video started"); // Replace with analytics call
+    // });
   </script>
 </body>
 </html>
