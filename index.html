@@ -3,172 +3,139 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Call Hero - Guaranteed 100% Answer Rate For Plumbers</title>
-
-  <!-- Favicon -->
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/597/597177.png" />
-
+  <title>Call Hero</title>
+  <link rel="icon" type="image/png" href="call-hero-site-logo-2.png" />
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       background-color: #002b5c;
-      color: #ffffff;
+      color: white;
       text-align: center;
     }
 
-    /* Layout spacing */
-    :root {
-      --section-spacing: 32px; /* ~20% less than the old 40px */
-    }
-
-    /* Header block */
     header {
-      padding-top: var(--section-spacing);
-      padding-bottom: var(--section-spacing);
+      padding-top: 40px; /* Top padding from screen to logo */
     }
 
-    header img {
-      max-width: 320px;
-      width: 80%;
-      height: auto;
-      display: block;
-      margin: 0 auto;
+    #logo {
+      height: 90px;
+      margin-bottom: 20px; /* Space between logo and subheadline */
     }
 
-    .headline {
+    h1 {
       font-size: 24px;
-      font-weight: 800;
-      margin: var(--section-spacing) 16px 0;
+      font-weight: bold;
+      margin: 0 0 20px; /* Space between subheadline and video */
     }
 
-    /* Video container */
     #video-wrapper {
-      position: relative;
       display: flex;
       justify-content: center;
-      align-items: center;
-      width: 100%;
-      margin-top: calc(var(--section-spacing) * 0.5); /* or set a fixed px value like 12px */
+      margin: 0 auto 20px; /* Space below video */
     }
 
-    #hero-video {
-      width: 92%;
-      max-width: 720px;
-      border: 3px solid #000;
-      border-radius: 8px;
-      box-sizing: border-box;
+    video {
+      width: 90%;
+      max-width: 640px;
+      height: auto;
+      border: 3px solid black;
+      border-radius: 10px;
     }
 
-    /* Click-to-unmute overlay */
     #unmute-overlay {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.65);
-      color: #fff;
-      padding: 12px 18px;
-      border-radius: 48px;
-      font-weight: 700;
-      font-size: 16px;
-      z-index: 10;
-      display: none;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    /* CTA Button */
-    #demo-button {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 1s ease;
-      background-color: #ff0000;
+      background-color: rgba(50, 50, 50, 0.7);
       color: white;
-      border: none;
-      padding: 12px 24px;
-      font-size: 18px;
-      font-weight: 700;
+      border-radius: 50px;
+      padding: 14px 22px;
       cursor: pointer;
-      margin-top: var(--section-spacing);
-      margin-bottom: var(--section-spacing);
-      border-radius: 6px;
+      font-size: 16px;
+      display: none;
+      z-index: 10;
     }
 
-    /* Calendly */
-    #calendly-container {
-      display: block;
-      visibility: hidden;
-      margin: 0 auto var(--section-spacing);
-      max-width: 92%;
-      height: 0;
-      overflow: hidden;
-      transition: height 0.3s ease, visibility 0s linear 0.3s;
+    #video-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    #cta-button {
+      background-color: red;
+      color: white;
+      padding: 14px 28px;
+      font-size: 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 20px auto 0;
+      display: none;
+    }
+
+    #calendly {
+      margin-top: 30px;
+      display: none;
     }
 
     iframe {
-      width: 100%;
+      width: 90%;
+      max-width: 600px;
+      height: 600px;
       border: none;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <img src="call-hero-site-logo-2.png" alt="Call Hero Logo" />
-    <div class="headline">I made this video for you...</div>
+    <img id="logo" src="call-hero-site-logo-2.png" alt="Call Hero Logo"/>
+    <h1>Recover 100K+ Per Year With a Guaranteed 100% Answer Rate</h1>
   </header>
 
   <div id="video-wrapper">
-    <video id="hero-video" autoplay muted playsinline controls>
-      <source src="https://outreach-video-backup-anthony0.s3.amazonaws.com/videos/superiorplumbing.ca_-_vaughan_-__20250818195128_final.mp4?AWSAccessKeyId=AKIAYNPTUAW6UIJDOLQS&Signature=ZlI58DDfLeNXdI4wQZKRC81959Y%3D&Expires=1758138788" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-    <div id="unmute-overlay">🔊 Tap to Unmute</div>
+    <div id="video-container">
+      <video id="hero-video" muted playsinline preload="auto">
+        <source src="https://outreach-video-backup-anthony0.s3.amazonaws.com/videos/superiorplumbing.ca_-_vaughan_-__20250818195128_final.mp4?AWSAccessKeyId=AKIAYNPTUAW6UIJDOLQS&Signature=ZlI58DDfLeNXdI4wQZKRC81959Y%3D&Expires=1758138788" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div id="unmute-overlay">🔊 Tap to Unmute</div>
+    </div>
   </div>
 
-  <button id="demo-button" onclick="showCalendly()">Request Your Zero Risk Free Trial</button>
+  <button id="cta-button">Request Your Zero Risk Free Trial</button>
 
-  <div id="calendly-container">
-    <iframe
-      id="cal-iframe"
-      src="https://calendly.com/anthonydecaro2005/30min"
-      height="600"
-      scrolling="no">
-    </iframe>
+  <div id="calendly">
+    <iframe src="https://calendly.com/anthonydecaro2005/30min" loading="lazy"></iframe>
   </div>
 
   <script>
     const video = document.getElementById('hero-video');
     const overlay = document.getElementById('unmute-overlay');
-    const btn = document.getElementById('demo-button');
-    const calWrap = document.getElementById('calendly-container');
+    const cta = document.getElementById('cta-button');
+    const calendly = document.getElementById('calendly');
 
-    // Show CTA after 10s
-    setTimeout(() => {
-      btn.style.opacity = 1;
-      btn.style.pointerEvents = 'auto';
-    }, 10000);
-
-    // Reveal Calendly
-    function showCalendly() {
-      calWrap.style.visibility = 'visible';
-      calWrap.style.height = '600px';
-      window.scrollBy({ top: 120, left: 0, behavior: 'smooth' });
-    }
-
-    // Show unmute button if needed
-    window.addEventListener('load', () => {
-      if (video.muted) overlay.style.display = 'block';
+    video.addEventListener('canplay', () => {
+      overlay.style.display = 'block';
     });
 
-    // Click-to-unmute and restart
     overlay.addEventListener('click', () => {
       video.muted = false;
-      try { video.currentTime = 0; } catch(e) {}
-      video.play().catch(()=>{});
+      video.currentTime = 0;
+      video.play();
       overlay.style.display = 'none';
+    });
+
+    setTimeout(() => {
+      cta.style.display = 'inline-block';
+    }, 10000); // Show CTA after 10 seconds
+
+    cta.addEventListener('click', () => {
+      calendly.style.display = 'block';
+      calendly.scrollIntoView({ behavior: 'smooth' });
     });
   </script>
 </body>
 </html>
-
