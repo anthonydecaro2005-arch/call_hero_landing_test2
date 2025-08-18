@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Call Hero - Guaranteed 100% Answer Rate For Plumbers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #002b5c; /* Deep blue from logo */
+      color: #ffffff;
+      text-align: center;
+    }
+    header {
+      padding: 20px;
+    }
+    h1.logo-text {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin: 0;
+      color: #ffffff;
+    }
+    h2.sub-header {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 5px 0 0 0;
+      color: #ffffff;
+    }
+    video {
+      max-width: 90%;
+      margin: 20px auto;
+      display: block;
+      border: 3px solid black;
+      box-sizing: border-box;
+    }
+    #demo-button {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease;
+      background-color: #ff0000;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    #calendly-container {
+      display: block;
+      visibility: hidden;
+      margin: 10px auto;
+      max-width: 90%;
+      height: 0;
+      overflow: hidden;
+      transition: height 0.3s ease, visibility 0s linear 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="logo-text">Call Hero</h1>
+    <h2 class="sub-header">Recover 100K+ Per Year With A Guaranteed 100% Answer Rate</h2>
+  </header>
+
+  <video id="hero-video" autoplay muted playsinline>
+    <source src="https://outreach-video-backup-anthony0.s3.amazonaws.com/videos/superiorplumbing.ca_-_vaughan_-__20250818195128_final.mp4?AWSAccessKeyId=AKIAYNPTUAW6UIJDOLQS&Signature=ZlI58DDfLeNXdI4wQZKRC81959Y%3D&Expires=1758138788" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <button id="demo-button" onclick="showCalendly()">Request Your Zero Risk Free Trial</button>
+
+  <div id="calendly-container">
+    <iframe id="calendly-iframe" src="https://calendly.com/anthonydecaro2005/30min" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+  </div>
+
+  <script>
+    const button = document.getElementById('demo-button');
+    const calendlyContainer = document.getElementById('calendly-container');
+
+    setTimeout(() => {
+      button.style.opacity = 1;
+      button.style.pointerEvents = 'auto';
+    }, 10000);
+
+    function showCalendly() {
+      calendlyContainer.style.visibility = 'visible';
+      calendlyContainer.style.height = '600px';
+      calendlyContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  </script>
+</body>
+</html>
