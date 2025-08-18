@@ -17,43 +17,54 @@
       text-align: center;
     }
 
-    /* Logo + headline */
-    header { padding: 40px 0; } /* equal top/bottom padding */
+    /* Layout spacing */
+    :root {
+      --section-spacing: 32px; /* ~20% less than the old 40px */
+    }
+
+    /* Header block */
+    header {
+      padding-top: var(--section-spacing);
+      padding-bottom: var(--section-spacing);
+    }
+
     header img {
       max-width: 320px;
       width: 80%;
       height: auto;
       display: block;
-      margin: 0 auto 12px;
+      margin: 0 auto;
     }
+
     .headline {
       font-size: 24px;
       font-weight: 800;
-      margin: 0 16px 8px;
+      margin: var(--section-spacing) 16px 0;
     }
 
-    /* Video */
+    /* Video container */
     #video-wrapper {
       position: relative;
-      display: inline-block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin-top: var(--section-spacing);
+    }
+
+    #hero-video {
       width: 92%;
-      max-width: 720px;           /* smaller on desktop/laptop */
-      margin: 20px auto;
+      max-width: 720px;
       border: 3px solid #000;
       border-radius: 8px;
       box-sizing: border-box;
-    }
-    #hero-video {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 6px;
     }
 
     /* Click-to-unmute overlay */
     #unmute-overlay {
       position: absolute;
-      top: 50%; left: 50%;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
       background: rgba(0,0,0,0.65);
       color: #fff;
@@ -62,12 +73,12 @@
       font-weight: 700;
       font-size: 16px;
       z-index: 10;
-      display: none;              /* shown if video is muted on load */
+      display: none;
       cursor: pointer;
       user-select: none;
     }
 
-    /* CTA */
+    /* CTA Button */
     #demo-button {
       opacity: 0;
       pointer-events: none;
@@ -79,29 +90,32 @@
       font-size: 18px;
       font-weight: 700;
       cursor: pointer;
-      margin: 18px 0 10px;
+      margin-top: var(--section-spacing);
+      margin-bottom: var(--section-spacing);
       border-radius: 6px;
     }
 
-    /* Calendly section (revealed on click) */
+    /* Calendly */
     #calendly-container {
       display: block;
       visibility: hidden;
-      margin: 10px auto 40px;
+      margin: 0 auto var(--section-spacing);
       max-width: 92%;
       height: 0;
       overflow: hidden;
       transition: height 0.3s ease, visibility 0s linear 0.3s;
     }
 
-    iframe { width: 100%; border: none; }
+    iframe {
+      width: 100%;
+      border: none;
+    }
   </style>
 </head>
 <body>
   <header>
-    <!-- Make sure this filename matches exactly (case-sensitive) -->
     <img src="call-hero-site-logo-2.png" alt="Call Hero Logo" />
-    <div class="headline">Recover 100K+ Per Year With A Guaranteed 100% Answer Rate</div>
+    <div class="headline">Recover 100K+ Per Year With a Guaranteed 100% Answer Rate</div>
   </header>
 
   <div id="video-wrapper">
@@ -135,19 +149,19 @@
       btn.style.pointerEvents = 'auto';
     }, 10000);
 
-    // Reveal Calendly + scroll a bit
+    // Reveal Calendly
     function showCalendly() {
       calWrap.style.visibility = 'visible';
       calWrap.style.height = '600px';
       window.scrollBy({ top: 120, left: 0, behavior: 'smooth' });
     }
 
-    // Show unmute pill if video is muted on load
+    // Show unmute button if needed
     window.addEventListener('load', () => {
       if (video.muted) overlay.style.display = 'block';
     });
 
-    // Click-to-unmute: unmute, restart from 0, play, hide overlay
+    // Click-to-unmute and restart
     overlay.addEventListener('click', () => {
       video.muted = false;
       try { video.currentTime = 0; } catch(e) {}
