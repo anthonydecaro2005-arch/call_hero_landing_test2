@@ -9,18 +9,17 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #002b5c; /* Deep blue from logo */
+      background-color: #002b5c;
       color: #ffffff;
       text-align: center;
     }
 
     header {
       padding: 20px;
-      text-align: center;
     }
 
     header img {
-      max-width: 300px;
+      max-width: 280px;
       height: auto;
       display: block;
       margin: 0 auto;
@@ -29,7 +28,7 @@
     h2.sub-header {
       font-size: 20px;
       font-weight: 700;
-      margin: 10px 0 0 0;
+      margin: 5px 0 0 0;
       color: #ffffff;
     }
 
@@ -71,7 +70,7 @@
     <h2 class="sub-header">Recover 100K+ Per Year With A Guaranteed 100% Answer Rate</h2>
   </header>
 
-  <video id="hero-video" controls>
+  <video id="hero-video" autoplay muted playsinline controls>
     <source src="https://outreach-video-backup-anthony0.s3.amazonaws.com/videos/superiorplumbing.ca_-_vaughan_-__20250818195128_final.mp4?AWSAccessKeyId=AKIAYNPTUAW6UIJDOLQS&Signature=ZlI58DDfLeNXdI4wQZKRC81959Y%3D&Expires=1758138788" type="video/mp4">
     Your browser does not support the video tag.
   </video>
@@ -89,7 +88,7 @@
     setTimeout(() => {
       button.style.opacity = 1;
       button.style.pointerEvents = 'auto';
-    }, 10000); // show button after 10s
+    }, 10000);
 
     function showCalendly() {
       calendlyContainer.style.visibility = 'visible';
