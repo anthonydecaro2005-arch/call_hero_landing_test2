@@ -98,7 +98,7 @@
 
   <div id="video-wrapper">
     <div id="video-container">
-      <video id="hero-video" muted playsinline preload="auto">
+      <video id="hero-video" muted playsinline autoplay controls preload="auto">
         <source src="https://outreach-video-backup-anthony0.s3.amazonaws.com/videos/superiorplumbing.ca_-_vaughan_-__20250818195128_final.mp4?AWSAccessKeyId=AKIAYNPTUAW6UIJDOLQS&Signature=ZlI58DDfLeNXdI4wQZKRC81959Y%3D&Expires=1758138788" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
@@ -117,33 +117,31 @@
     const overlay = document.getElementById('unmute-overlay');
     const cta = document.getElementById('cta-button');
     const calendly = document.getElementById('calendly');
-  
-    // Show unmute overlay once video is ready
+
+    // Show unmute overlay when video is ready
     video.addEventListener('canplay', () => {
-      overlay.style.display = 'block';
+      overlay.style.display = 'flex';
     });
-  
+
     overlay.addEventListener('click', async () => {
       try {
-        video.muted = false;
+        video.pause();
         video.currentTime = 0;
-        await video.play();  // ✅ wait for successful play before hiding overlay
+        video.muted = false;
+        await video.play();
         overlay.style.display = 'none';
       } catch (err) {
         console.error("Playback failed:", err);
-        // Optional: show a retry message or keep overlay up
       }
     });
-  
+
+    // Show CTA button after 10 seconds
     setTimeout(() => {
       cta.style.display = 'inline-block';
     }, 10000);
-  
+
     cta.addEventListener('click', () => {
       calendly.style.display = 'block';
       calendly.scrollIntoView({ behavior: 'smooth' });
     });
   </script>
-</body>
-</html>
-
