@@ -117,22 +117,28 @@
     const overlay = document.getElementById('unmute-overlay');
     const cta = document.getElementById('cta-button');
     const calendly = document.getElementById('calendly');
-
+  
+    // Show unmute overlay once video is ready
     video.addEventListener('canplay', () => {
       overlay.style.display = 'block';
     });
-
-    overlay.addEventListener('click', () => {
-      video.muted = false;
-      video.currentTime = 0;
-      video.play();
-      overlay.style.display = 'none'; // ✅ Remove overlay after click
+  
+    overlay.addEventListener('click', async () => {
+      try {
+        video.muted = false;
+        video.currentTime = 0;
+        await video.play();  // ✅ wait for successful play before hiding overlay
+        overlay.style.display = 'none';
+      } catch (err) {
+        console.error("Playback failed:", err);
+        // Optional: show a retry message or keep overlay up
+      }
     });
-
+  
     setTimeout(() => {
       cta.style.display = 'inline-block';
     }, 10000);
-
+  
     cta.addEventListener('click', () => {
       calendly.style.display = 'block';
       calendly.scrollIntoView({ behavior: 'smooth' });
@@ -140,3 +146,4 @@
   </script>
 </body>
 </html>
+
