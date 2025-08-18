@@ -31,23 +31,11 @@
     }
     video {
       max-width: 90%;
+      width: 720px;
       margin: 20px auto;
       display: block;
       border: 3px solid black;
       box-sizing: border-box;
-    }
-    .controls {
-      margin-top: 10px;
-    }
-    .controls button {
-      background-color: #ffffff;
-      color: #002b5c;
-      font-size: 14px;
-      padding: 8px 16px;
-      margin: 0 5px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
     }
     #demo-button {
       opacity: 0;
@@ -83,11 +71,6 @@
     Your browser does not support the video tag.
   </video>
 
-  <div class="controls">
-    <button onclick="skipVideo(-10)">⏪ Back 10s</button>
-    <button onclick="skipVideo(10)">⏩ Forward 10s</button>
-  </div>
-
   <button id="demo-button" onclick="showCalendly()">Request Your Zero Risk Free Trial</button>
 
   <div id="calendly-container">
@@ -104,7 +87,6 @@
   <script>
     const button = document.getElementById('demo-button');
     const calendlyContainer = document.getElementById('calendly-container');
-    const video = document.getElementById('hero-video');
 
     setTimeout(() => {
       button.style.opacity = 1;
@@ -116,11 +98,6 @@
       calendlyContainer.style.height = '600px';
       calendlyContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-
-    function skipVideo(seconds) {
-      video.currentTime += seconds;
-    }
   </script>
 </body>
 </html>
-
