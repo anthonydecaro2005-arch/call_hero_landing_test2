@@ -4,75 +4,144 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Call Hero - Guaranteed 100% Answer Rate For Plumbers</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/597/597177.png" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
   <style>
-    body{
-      margin:0;font-family:'Poppins',sans-serif;background:#002b5c;color:#fff;text-align:center
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #002b5c;
+      color: #ffffff;
+      text-align: center;
     }
-    header{padding:40px 20px}
-    header img{
-      max-width:420px;width:90%;height:auto;display:block;margin:0 auto 12px
+
+    header {
+      padding: 40px 0; /* Equal top & bottom padding */
     }
-    h2.sub-header{font-size:20px;font-weight:700;margin:8px 0 0}
-    video{
-      width:720px;max-width:92vw;margin:24px auto;display:block;border:3px solid #000;box-sizing:border-box
+
+    header img {
+      max-width: 280px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
     }
-    #demo-button{
-      opacity:0;pointer-events:none;transition:opacity 1s ease;background:#f00;color:#fff;border:none;
-      padding:12px 24px;font-size:16px;cursor:pointer;margin-bottom:20px
+
+    h2.sub-header {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 5px 0 0 0;
+      color: #ffffff;
     }
-    #calendly-container{
-      display:block;visibility:hidden;margin:10px auto;max-width:90%;height:0;overflow:hidden;
-      transition:height .3s ease,visibility 0s linear .3s
+
+    #video-wrapper {
+      position: relative;
+      display: inline-block;
+      margin: 20px auto;
+      max-width: 100%;
+    }
+
+    video {
+      width: 90%;
+      border: 3px solid black;
+      box-sizing: border-box;
+    }
+
+    /* Shrink video on wider screens */
+    @media (min-width: 768px) {
+      video {
+        width: 720px;
+      }
+    }
+
+    #unmute-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 20px 30px;
+      font-size: 18px;
+      border-radius: 50px;
+      cursor: pointer;
+      z-index: 10;
+      display: none;
+      user-select: none;
+    }
+
+    #demo-button {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease;
+      background-color: #ff0000;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    #calendly-container {
+      display: block;
+      visibility: hidden;
+      margin: 10px auto;
+      max-width: 90%;
+      height: 0;
+      overflow: hidden;
+      transition: height 0.3s ease, visibility 0s linear 0.3s;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="call-hero-site-logo-2.png" alt="Call Hero Logo" />
+    <img src="Call-hero-site-logo-2.png" alt="Call Hero Logo" />
     <h2 class="sub-header">Recover 100K+ Per Year With A Guaranteed 100% Answer Rate</h2>
   </header>
 
-  <video id="hero-video" controls playsinline>
-    <source src="https://outreach-video-backup-anthony0.s3.amazonaws.com/videos/superiorplumbing.ca_-_vaughan_-__20250818195128_final.mp4?AWSAccessKeyId=AKIAYNPTUAW6UIJDOLQS&Signature=ZlI58DDfLeNXdI4wQZKRC81959Y%3D&Expires=1758138788" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <div id="video-wrapper">
+    <video id="hero-video" autoplay muted playsinline controls>
+      <source src="https://outreach-video-backup-anthony0.s3.amazonaws.com/videos/superiorplumbing.ca_-_vaughan_-__20250818195128_final.mp4?AWSAccessKeyId=AKIAYNPTUAW6UIJDOLQS&Signature=ZlI58DDfLeNXdI4wQZKRC81959Y%3D&Expires=1758138788" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div id="unmute-overlay" onclick="unmuteVideo()">🔊 Tap to Unmute</div>
+  </div>
 
   <button id="demo-button" onclick="showCalendly()">Request Your Zero Risk Free Trial</button>
 
   <div id="calendly-container">
-    <iframe id="calendly-iframe" src="https://calendly.com/anthonydecaro2005/30min"
-            width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+    <iframe id="calendly-iframe" src="https://calendly.com/anthonydecaro2005/30min" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
   </div>
 
   <script>
-    const btn = document.getElementById('demo-button');
-    const cal = document.getElementById('calendly-container');
     const video = document.getElementById('hero-video');
+    const overlay = document.getElementById('unmute-overlay');
+    const button = document.getElementById('demo-button');
+    const calendlyContainer = document.getElementById('calendly-container');
 
-    // reveal CTA after 10s
-    setTimeout(()=>{ btn.style.opacity=1; btn.style.pointerEvents='auto'; }, 10000);
+    // Show button after delay
+    setTimeout(() => {
+      button.style.opacity = 1;
+      button.style.pointerEvents = 'auto';
+    }, 10000);
 
-    function showCalendly(){
-      cal.style.visibility='visible';
-      cal.style.height='600px';
-      cal.scrollIntoView({behavior:'smooth', block:'start'});
+    function showCalendly() {
+      calendlyContainer.style.visibility = 'visible';
+      calendlyContainer.style.height = '600px';
+      calendlyContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    // Try autoplay with sound; fallback to first user interaction if blocked
-    document.addEventListener('DOMContentLoaded', ()=>{
-      video.play().catch(()=>{
-        const unlock=()=>{ video.play().catch(()=>{}); 
-          document.removeEventListener('click',unlock);
-          document.removeEventListener('touchstart',unlock);
-          document.removeEventListener('keydown',unlock);
-        };
-        document.addEventListener('click',unlock,{once:true});
-        document.addEventListener('touchstart',unlock,{once:true});
-        document.addEventListener('keydown',unlock,{once:true});
-      });
+    // Show unmute overlay on load
+    window.addEventListener('load', () => {
+      if (video.muted) {
+        overlay.style.display = 'block';
+      }
     });
+
+    function unmuteVideo() {
+      video.muted = false;
+      overlay.style.display = 'none';
+    }
   </script>
 </body>
 </html>
