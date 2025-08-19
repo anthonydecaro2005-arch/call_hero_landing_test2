@@ -25,6 +25,7 @@
     h1 {
       margin: 20px 0;
       font-size: 22px;
+      font-weight: 700;
     }
 
     #video-wrapper {
@@ -35,7 +36,8 @@
 
     #video-container {
       position: relative;
-      max-width: 90%;
+      width: 100%;
+      max-width: 640px;
     }
 
     video {
@@ -66,12 +68,15 @@
       font-size: 16px;
       cursor: pointer;
       display: none;
+      margin-top: 20px;
     }
 
     #cta-subtext {
+      display: none;
       margin-top: 10px;
       margin-bottom: 10px;
       font-size: 14px;
+      font-weight: normal;
       color: #ffffff;
     }
 
@@ -107,10 +112,7 @@
   </div>
 
   <button id="cta-button">Request Your Zero Risk Free Trial</button>
-
-  <p id="cta-subtext">
-    For 2 weeks we will handle every call you were about to miss. It's free and takes 0 set-up time on your end.
-  </p>
+  <p id="cta-subtext">For 2 weeks we will handle every call you were about to miss. It's free and takes 0 set-up time on your end.</p>
 
   <div id="calendly">
     <iframe src="https://calendly.com/anthonydecaro2005/30min" loading="lazy"></iframe>
@@ -120,6 +122,7 @@
     const video = document.getElementById('hero-video');
     const overlay = document.getElementById('unmute-overlay');
     const cta = document.getElementById('cta-button');
+    const subtext = document.getElementById('cta-subtext');
     const calendly = document.getElementById('calendly');
 
     video.addEventListener('canplay', () => {
@@ -141,6 +144,7 @@
 
     setTimeout(() => {
       cta.style.display = 'inline-block';
+      subtext.style.display = 'block';
     }, 10000);
 
     cta.addEventListener('click', () => {
