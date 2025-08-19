@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Call Hero - Guaranteed 100% Answer Rate For Plumbers</title>
   <link rel="icon" type="image/png" href="favicon-2.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://outreach-video-backup-anthony0.s3.amazonaws.com" crossorigin>
+  <link rel="preconnect" href="https://calendly.com">
+  <link rel="preconnect" href="https://assets.calendly.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -19,7 +24,6 @@
     #logo {
       max-width: 280px;
       height: auto;
-      margin-bottom: 15px;
       margin-bottom: 15px;
     }
 
@@ -93,7 +97,6 @@
       max-width: 60%;
       margin: 0 auto;
     }
-
     iframe {
       width: 100%;
       height: 600px;
@@ -153,18 +156,18 @@
         margin-bottom: 10px;
       }
     }
-
   </style>
 </head>
 <body>
-  <iframe 
-    id="calendlyPreload" 
-    src="https://calendly.com/anthonydecaro2005/30min" 
-    style="display:none;" 
-    loading="eager">
+  <!-- Defer Calendly network until JS sets src (keeps functionality, avoids eager load) -->
+  <iframe
+    id="calendlyPreload"
+    data-src="https://calendly.com/anthonydecaro2005/30min"
+    style="display:none;">
   </iframe>
+
   <header>
-    <img id="logo" src="call-hero-site-logo-2.png" alt="Call Hero Logo"/>
+    <img id="logo" src="call-hero-site-logo-2.png" alt="Call Hero Logo" />
     <h1>You’re Losing $80K/Year to Missed Calls — Here’s the Fix:</h1>
   </header>
 
@@ -189,25 +192,26 @@
     const cta = document.getElementById('cta-button');
     const subtext = document.getElementById('cta-subtext');
     const calendly = document.getElementById('calendly');
+    const preloadIframe = document.getElementById('calendlyPreload');
 
-    // Delay Calendly preload until after page load (2s), before CTA appears
+    // Preload Calendly after onload + 2s without double-fetch
     window.addEventListener('load', () => {
       setTimeout(() => {
-        const preloadIframe = document.getElementById('calendlyPreload');
-        // reassigning src ensures the browser begins loading it now
-        preloadIframe.src = preloadIframe.src;
+        if (!preloadIframe.src) {
+          preloadIframe.src = preloadIframe.getAttribute('data-src');
+        }
       }, 2000);
     });
-
     video.addEventListener('canplay', () => {
       overlay.style.display = 'block';
-      video.play();
+      const p = video.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {});
+      }
     });
 
     overlay.addEventListener('click', async () => {
       try {
-        video.pause();
-        video.currentTime = 0;
         video.muted = false;
         await video.play();
         overlay.style.display = 'none';
@@ -216,6 +220,7 @@
       }
     });
 
+    // Keep original behavior: reveal CTA after fixed 10s
     setTimeout(() => {
       cta.style.display = 'inline-block';
       subtext.style.display = 'block';
@@ -224,34 +229,30 @@
         subtext.style.opacity = 1;
       });
     }, 10000);
+
     cta.addEventListener('click', () => {
-      const preloadIframe = document.getElementById('calendlyPreload');
-    
-      // unhide the container
+      // Ensure Calendly has a src even if preload hasn't run yet
+      if (!preloadIframe.src) {
+        const ds = preloadIframe.getAttribute('data-src');
+        if (ds) preloadIframe.src = ds;
+      }
+
+      // Unhide the container
       calendly.style.display = 'block';
-    
-      // move the preloaded iframe into view and show it
-      calendly.appendChild(preloadIframe);
+
+      // Move the preloaded iframe into view and show it
+      if (preloadIframe.parentNode !== calendly) {
+        calendly.appendChild(preloadIframe);
+      }
       preloadIframe.style.display = 'block';
-    
+
+      // Scroll into view
       calendly.scrollIntoView({ behavior: 'smooth' });
-    
-      // 🔒 disable the button so it can't be clicked again
+
+      // Disable button to prevent double-clicks
       cta.disabled = true;
-      cta.style.cursor = "not-allowed"; // visual feedback
+      cta.style.cursor = 'not-allowed';
     });
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
