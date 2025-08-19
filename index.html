@@ -136,14 +136,14 @@
     
       #cta-subtext {
         margin-top: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 40px;
       }
     
       #calendly {
         max-width: 100%;
         width: 100%;
         margin-top: 20px;
-        margin-bottom: 20px;
+        margin-bottom: 40px;
       }
     
       iframe {
@@ -235,10 +235,15 @@
       preloadIframe.style.display = 'block';
     
       calendly.scrollIntoView({ behavior: 'smooth' });
+    
+      // 🔒 disable the button so it can't be clicked again
+      cta.disabled = true;
+      cta.style.cursor = "not-allowed"; // visual feedback
     });
   </script>
 </body>
 </html>
+
 
 
 
