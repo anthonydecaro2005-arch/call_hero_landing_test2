@@ -169,14 +169,19 @@
         subtext.style.opacity = 1;
       });
     }, 10000);
-
     cta.addEventListener('click', () => {
-      // move the preloaded iframe into view and show it
       const preloadIframe = document.getElementById('calendlyPreload');
+    
+      // unhide the container
+      calendly.style.display = 'block';
+    
+      // move the preloaded iframe into view and show it
       calendly.appendChild(preloadIframe);
       preloadIframe.style.display = 'block';
+    
       calendly.scrollIntoView({ behavior: 'smooth' });
     });
   </script>
 </body>
 </html>
+
