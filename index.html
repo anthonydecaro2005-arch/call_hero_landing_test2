@@ -148,8 +148,12 @@
     });
 
     setTimeout(() => {
-      cta.style.opacity = 1;
-      subtext.style.opacity = 1;
+      cta.style.display = 'inline-block';
+      subtext.style.display = 'block';
+      requestAnimationFrame(() => {
+        cta.style.opacity = 1;
+        subtext.style.opacity = 1;
+      });
     }, 10000);
 
     cta.addEventListener('click', () => {
@@ -159,12 +163,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
