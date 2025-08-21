@@ -193,10 +193,9 @@
     // Unmute + restart on overlay click
     overlay.addEventListener('click', async () => {
       try {
-        video.pause();
-        video.currentTime = 0;
-        video.muted = false;
-        await video.play();
+        video.currentTime = 0;   // reset first
+        video.muted = false;     // unmute
+        await video.play();      // play from beginning
         overlay.style.display = 'none';
       } catch (err) {
         console.error("Playback failed:", err);
@@ -233,4 +232,5 @@
   </script>
 </body>
 </html>
+
 
