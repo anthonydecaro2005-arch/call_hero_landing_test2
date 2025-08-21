@@ -158,8 +158,14 @@
   </style>
 </head>
 <body>
+  <iframe 
+    id="calendlyPreload" 
+    src="https://calendly.com/anthonydecaro2005/30min" 
+    style="display:none;" 
+    loading="eager">
+  </iframe>
   <header>
-    <img id="logo" src="call-hero-site-logo-2.png" alt="Call Hero Logo" loading="lazy"/>
+    <img id="logo" src="call-hero-site-logo-2.png" alt="Call Hero Logo"/>
     <h1>You’re Losing $80K/Year to Missed Calls — Here’s the Fix:</h1>
   </header>
 
@@ -185,17 +191,18 @@
     const subtext = document.getElementById('cta-subtext');
     const calendly = document.getElementById('calendly');
 
-    // Show overlay and auto-play muted as soon as video is ready
-    video.addEventListener('canplay', async () => {
-      overlay.style.display = 'block';
-      try {
-        await video.play(); // muted autoplay allowed
-      } catch (err) {
-        console.debug("Autoplay blocked:", err);
-      }
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const preloadIframe = document.getElementById('calendlyPreload');
+        preloadIframe.src = preloadIframe.src;
+      }, 2000);
     });
 
-    // Restart and unmute on overlay click
+    video.addEventListener('canplay', () => {
+      overlay.style.display = 'block';
+      video.play();
+    });
+
     overlay.addEventListener('click', async () => {
       try {
         video.pause();
@@ -208,7 +215,6 @@
       }
     });
 
-    // Reveal CTA after 10s
     setTimeout(() => {
       cta.style.display = 'inline-block';
       subtext.style.display = 'block';
@@ -218,20 +224,12 @@
       });
     }, 10000);
 
-    // Load Calendly only when CTA is clicked
     cta.addEventListener('click', () => {
-      const calendlyIframe = document.createElement('iframe');
-      calendlyIframe.src = "https://calendly.com/anthonydecaro2005/30min";
-      calendlyIframe.style.width = "100%";
-      calendlyIframe.style.height = "600px";
-      calendlyIframe.style.border = "none";
-
+      const preloadIframe = document.getElementById('calendlyPreload');
       calendly.style.display = 'block';
-      calendly.appendChild(calendlyIframe);
-
+      calendly.appendChild(preloadIframe);
+      preloadIframe.style.display = 'block';
       calendly.scrollIntoView({ behavior: 'smooth' });
-
-      // lock button
       cta.disabled = true;
       cta.style.cursor = "not-allowed";
     });
