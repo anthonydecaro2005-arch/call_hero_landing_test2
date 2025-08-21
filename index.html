@@ -185,17 +185,27 @@
     const subtext = document.getElementById('cta-subtext');
     const calendly = document.getElementById('calendly');
 
-    // Show overlay immediately
+    // Overlay visible immediately
     document.addEventListener('DOMContentLoaded', () => {
       overlay.style.display = 'block';
     });
 
-    // Unmute + restart on overlay click
+    // Start playing muted as soon as the video can play (fast perceived load)
+    video.addEventListener('canplay', async () => {
+      try {
+        await video.play(); // allowed because video is muted
+      } catch (e) {
+        // ignore if a browser blocks it (rare with muted)
+        console.debug('Autoplay (muted) was blocked:', e);
+      }
+    });
+
+    // Unmute + restart from 0 on overlay click
     overlay.addEventListener('click', async () => {
       try {
-        video.currentTime = 0;   // reset first
+        video.currentTime = 0;   // restart
         video.muted = false;     // unmute
-        await video.play();      // play from beginning
+        await video.play();      // play with sound
         overlay.style.display = 'none';
       } catch (err) {
         console.error("Playback failed:", err);
@@ -232,5 +242,7 @@
   </script>
 </body>
 </html>
+
+
 
 
