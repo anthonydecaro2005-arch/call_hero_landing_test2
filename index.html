@@ -156,14 +156,14 @@
     }
 
   </style>
+<head>
+  <!-- Keep your existing styles/scripts above if any. Do NOT change styling. -->
+  <!-- Speed: preload the video file so it begins fetching ASAP -->
+  <link rel="preload" as="video" href="video.mp4" type="video/mp4">
 </head>
 <body>
-  <iframe 
-    id="calendlyPreload" 
-    src="https://calendly.com/anthonydecaro2005/30min" 
-    style="display:none;" 
-    loading="eager">
-  </iframe>
+  <!-- No Calendly preload. Nothing hidden. -->
+
   <header>
     <img id="logo" src="call-hero-site-logo-2.png" alt="Call Hero Logo"/>
     <h1>You’re Losing $80K/Year to Missed Calls — Here’s the Fix:</h1>
@@ -171,7 +171,7 @@
 
   <div id="video-wrapper">
     <div id="video-container">
-      <video id="hero-video" muted playsinline preload="auto" controls>
+      <video id="hero-video" muted playsinline preload="auto" controls webkit-playsinline>
         <source src="video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
@@ -185,24 +185,23 @@
   <div id="calendly"></div>
 
   <script>
+    // === Easy timing knob ===
+    const CTA_REVEAL_MS = 10000; // change this to adjust CTA/subtext delay
+
+    // Required handles (keep same names)
     const video = document.getElementById('hero-video');
     const overlay = document.getElementById('unmute-overlay');
     const cta = document.getElementById('cta-button');
     const subtext = document.getElementById('cta-subtext');
     const calendly = document.getElementById('calendly');
 
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        const preloadIframe = document.getElementById('calendlyPreload');
-        preloadIframe.src = preloadIframe.src;
-      }, 2000);
-    });
-
+    // Fast perceived load: show overlay & start muted playback as soon as we can actually play
     video.addEventListener('canplay', () => {
       overlay.style.display = 'block';
-      video.play();
-    });
+      try { video.play(); } catch (_) {}
+    }, { once: true });
 
+    // On overlay click: restart from 0, unmute, play
     overlay.addEventListener('click', async () => {
       try {
         video.pause();
@@ -211,27 +210,44 @@
         await video.play();
         overlay.style.display = 'none';
       } catch (err) {
-        console.error("Playback failed:", err);
+        console.error('Playback failed:', err);
       }
     });
 
-    setTimeout(() => {
-      cta.style.display = 'inline-block';
-      subtext.style.display = 'block';
-      requestAnimationFrame(() => {
-        cta.style.opacity = 1;
-        subtext.style.opacity = 1;
-      });
-    }, 10000);
+    // CTA + subtext fade-in after CTA_REVEAL_MS
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        cta.style.display = 'inline-block';
+        subtext.style.display = 'block';
+        requestAnimationFrame(() => {
+          cta.style.opacity = 1;
+          subtext.style.opacity = 1;
+        });
+      }, CTA_REVEAL_MS);
+    });
 
+    // On CTA click: create Calendly iframe on demand (no preload), reveal, and scroll a bit
     cta.addEventListener('click', () => {
-      const preloadIframe = document.getElementById('calendlyPreload');
+      // Lazily create embed only once
+      if (!calendly.querySelector('iframe')) {
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://calendly.com/anthonydecaro2005/30min';
+        iframe.id = 'calendlyEmbed';
+        iframe.title = 'Schedule a call';
+        iframe.loading = 'eager'; // created on click, so not preloading
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allowtransparency', 'true');
+        iframe.style.display = 'block'; // rely on your CSS for sizing
+        calendly.appendChild(iframe);
+      }
+
       calendly.style.display = 'block';
-      calendly.appendChild(preloadIframe);
-      preloadIframe.style.display = 'block';
-      calendly.scrollIntoView({ behavior: 'smooth' });
+      calendly.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Nudge slightly further down for comfort
+      try { window.scrollBy({ top: 80, behavior: 'smooth' }); } catch (_) {}
+
       cta.disabled = true;
-      cta.style.cursor = "not-allowed";
+      cta.style.cursor = 'not-allowed';
     });
   </script>
 </body>
